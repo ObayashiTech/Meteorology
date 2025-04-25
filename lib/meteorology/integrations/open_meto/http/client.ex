@@ -1,6 +1,6 @@
 defmodule Meteorology.Integrations.OpenMeteo.HTTP.Client do
   @moduledoc """
-  Cliente HTTP para integração com OpenMeteo, usando Finch.
+  HTTP client for integration with OpenMeteo, using Finch.
   """
   @behaviour Meteorology.Integrations.OpenMeteo.HTTP.Behaviour
 
