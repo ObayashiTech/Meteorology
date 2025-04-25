@@ -1,4 +1,8 @@
 defmodule Meteorology.Integrations.OpenMeteo.HTTP.Requests do
+  @moduledoc """
+  Provides high-level HTTP request functions for interacting with the Open-Meteo API.
+  """
+
   alias Meteorology.Integrations.OpenMeteo.HTTP.Client
 
   @base_url "https://api.open-meteo.com/v1/forecast"

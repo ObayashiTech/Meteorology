@@ -19,7 +19,7 @@ defmodule Meteorology.Integrations.OpenMeteo.HTTP.RequestsTest do
     }
     """
 
-    test "retorna JSON parseado quando a requisição é bem-sucedida" do
+    test "returns parsed JSON when request is successful" do
       expect(MockClient, :get, fn url ->
         assert String.contains?(url, "latitude=-23.55")
         assert String.contains?(url, "longitude=-46.63")
@@ -33,7 +33,7 @@ defmodule Meteorology.Integrations.OpenMeteo.HTTP.RequestsTest do
       assert %{"daily" => %{"temperature_2m_max" => [22.8, 24.3, 26.8]}} = parsed
     end
 
-    test "retorna erro quando a API retorna status diferente de 200" do
+    test "returns error when API responds with non-200 status" do
       expect(MockClient, :get, fn _url ->
         {:error, {:unexpected_status, 400}}
       end)
@@ -42,7 +42,7 @@ defmodule Meteorology.Integrations.OpenMeteo.HTTP.RequestsTest do
                Requests.get_max_temperature(-23.55, -46.63, "America/Sao_Paulo", MockClient)
     end
 
-    test "retorna erro quando há timeout na requisição" do
+    test "returns error on request timeout" do
       expect(MockClient, :get, fn _url ->
         {:error, :timeout}
       end)
@@ -53,7 +53,7 @@ defmodule Meteorology.Integrations.OpenMeteo.HTTP.RequestsTest do
   end
 
   describe "build_url/3" do
-    test "constrói URL corretamente com parâmetros básicos" do
+    test "builds URL correctly with basic parameters" do
       url = Requests.build_url(-23.55, -46.63, "America/Sao_Paulo")
 
       assert url ==
@@ -63,23 +63,23 @@ defmodule Meteorology.Integrations.OpenMeteo.HTTP.RequestsTest do
                  "timezone=America%2FSao_Paulo"
     end
 
-    test "codifica caracteres especiais no timezone" do
+    test "encodes special characters in timezone" do
       url = Requests.build_url(-23.55, -46.63, "America/New_York")
       assert String.contains?(url, "timezone=America%2FNew_York")
     end
   end
 
   describe "parse_response/1" do
-    test "parseia resposta JSON válida" do
+    test "parses valid JSON response" do
       json = "{\"key\": \"value\"}"
       assert {:ok, %{"key" => "value"}} = Requests.parse_response({:ok, json})
     end
 
-    test "retorna erro para JSON inválido" do
+    test "returns error for invalid JSON" do
       assert {:error, {:invalid_json, _}} = Requests.parse_response({:ok, "invalid"})
     end
 
-    test "retorna erro inalterado" do
+    test "returns unchanged error" do
       assert {:error, :some_error} = Requests.parse_response({:error, :some_error})
     end
   end
