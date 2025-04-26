@@ -1,19 +1,26 @@
 # Meteorology
 
-**TODO: Add description**
+## Running the Project
 
-## Installation
+After cloning the repository, follow these steps:
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `meteorology` to your list of dependencies in `mix.exs`:
+1. Fetch the dependencies:
 
-```elixir
-def deps do
-  [
-    {:meteorology, "~> 0.1.0"}
-  ]
-end
-```
+    ```bash
+    mix deps.get
+    ```
+
+2. To start the interactive CLI and navigate through the menu:
+
+    ```bash
+    mix run --no-halt
+    ```
+
+3. To directly print the calculated average temperatures without entering the CLI:
+
+    ```bash
+    mix run -e "Meteorology.Interface.show_results()"
+    ```
 
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
