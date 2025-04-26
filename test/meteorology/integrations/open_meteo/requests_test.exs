@@ -28,7 +28,7 @@ defmodule Meteorology.Integrations.OpenMeteo.HTTP.RequestsTest do
       end)
 
       assert {:ok, parsed} =
-               Requests.get_max_temperature(-23.55, -46.63, "America/Sao_Paulo", MockClient)
+               Requests.get_max_temperature(-23.55, -46.63, "America/Sao_Paulo")
 
       assert %{"daily" => %{"temperature_2m_max" => [22.8, 24.3, 26.8]}} = parsed
     end
@@ -39,7 +39,7 @@ defmodule Meteorology.Integrations.OpenMeteo.HTTP.RequestsTest do
       end)
 
       assert {:error, {:unexpected_status, 400}} =
-               Requests.get_max_temperature(-23.55, -46.63, "America/Sao_Paulo", MockClient)
+               Requests.get_max_temperature(-23.55, -46.63, "America/Sao_Paulo")
     end
 
     test "returns error on request timeout" do
@@ -48,7 +48,7 @@ defmodule Meteorology.Integrations.OpenMeteo.HTTP.RequestsTest do
       end)
 
       assert {:error, :timeout} =
-               Requests.get_max_temperature(-23.55, -46.63, "America/Sao_Paulo", MockClient)
+               Requests.get_max_temperature(-23.55, -46.63, "America/Sao_Paulo")
     end
   end
 end
