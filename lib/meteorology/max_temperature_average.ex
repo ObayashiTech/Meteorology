@@ -11,7 +11,7 @@ defmodule Meteorology.MaxTemperatureAverage do
     %{name: "Curitiba", latitude: -25.43, longitude: -49.27}
   ]
 
-  def calculate_averages do
+  def execute() do
     @cities
     |> Enum.map(&fetch_data_async/1)
     |> Task.await_many()

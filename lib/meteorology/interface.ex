@@ -31,10 +31,10 @@ defmodule Meteorology.Interface do
     end
   end
 
-  defp show_results do
+  def show_results do
     IO.puts("\nFetching data and calculating averages...\n")
 
-    Meteorology.MaxTemperatureAverage.calculate_averages()
+    Meteorology.MaxTemperatureAverage.execute()
     |> Enum.each(fn
       {city, avg} when is_float(avg) ->
         IO.puts("#{city}: #{Float.round(avg, 1)}°C")

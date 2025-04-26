@@ -17,7 +17,7 @@ defmodule Meteorology.MaxTemperatureAverageTest do
   test "returns average temperatures for all cities" do
     expect(MockClient, :get, 3, fn _url -> {:ok, Jason.encode!(@mock_response)} end)
 
-    result = MaxTemperatureAverage.calculate_averages()
+    result = MaxTemperatureAverage.execute()
 
     assert length(result) == 3
 
@@ -34,7 +34,7 @@ defmodule Meteorology.MaxTemperatureAverageTest do
     response = %{"daily" => %{"temperature_2m_max" => [22.0, 23.0]}}
     expect(MockClient, :get, 3, fn _url -> {:ok, Jason.encode!(response)} end)
 
-    result = MaxTemperatureAverage.calculate_averages()
+    result = MaxTemperatureAverage.execute()
 
     Enum.each(result, fn
       {_city, temp} ->
@@ -46,7 +46,7 @@ defmodule Meteorology.MaxTemperatureAverageTest do
     bad_response = %{"unexpected" => "data"}
     expect(MockClient, :get, 3, fn _url -> {:ok, Jason.encode!(bad_response)} end)
 
-    result = MaxTemperatureAverage.calculate_averages()
+    result = MaxTemperatureAverage.execute()
 
     Enum.each(result, fn
       {_city, temp} ->
@@ -57,7 +57,7 @@ defmodule Meteorology.MaxTemperatureAverageTest do
   test "returns {:error, reason} on API error" do
     expect(MockClient, :get, 3, fn _url -> {:error, :timeout} end)
 
-    result = MaxTemperatureAverage.calculate_averages()
+    result = MaxTemperatureAverage.execute()
 
     Enum.each(result, fn
       {_city, temp} ->
