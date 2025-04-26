@@ -13,7 +13,7 @@ After cloning the repository, follow these steps:
 2. To start the interactive CLI and navigate through the menu:
 
     ```bash
-    mix run --no-halt
+    mix start
     ```
 
 3. To directly print the calculated average temperatures without entering the CLI:
